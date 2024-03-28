@@ -6,12 +6,14 @@ import "./style.css";
 function CommentTextarea({ comments, id, paramsId, onCancel, t, handleCommentSubmit }) {
   const exists = useSelector(state => state.session.exists);
   const [comment, setComment] = useState('');
-
   const handleChange = ({ target: { value } }) => {
     setComment(value);
   }
   const handleSubmit = () => {
-    if ((/^\s*$/.test(comment))) return alert(t("article.empty"));
+    if (/^\s*$/.test(comment)) {
+      alert(t("article.empty"));
+      return;
+    }
     let id = null;
     if (comments?.parent?._type === 'article') { id = comments?._id } else if (comments?.parent?._type === 'comment') { id = comments?._id } else { id = paramsId };
     handleCommentSubmit({ text: comment, parent: { _id: id, _type: comments ? "comment" : "article" } });

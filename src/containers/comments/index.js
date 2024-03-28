@@ -21,7 +21,7 @@ function Comments() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { t } = useTranslate();
+  const { t, lang } = useTranslate();
 
   const select = useSelectorRedux(state => ({
     comments: state.comments.items.items,
@@ -47,7 +47,7 @@ function Comments() {
       <CommentItem
         comment={comment} setIsOpenTextarea={callbacks.setIsOpenTextarea} isOpenTextarea={select.modal} onChange={callbacks.onChange} paramsId={params.id} onSubmit={callbacks.onSubmit} onCancel={callbacks.onCancel}
         exists={exists} t={t} onSignIn={callbacks.onSignIn} handleCommentSubmit={callbacks.handleCommentSubmit} />
-    ), [select.comments, select.modal, callbacks.onSubmit]
+    ), [select.comments, select.modal, callbacks.onSubmit, lang]
     )
   };
   useInit(() => dispatch(commentsActions.loadComments(params.id)), []);

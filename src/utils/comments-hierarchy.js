@@ -2,10 +2,17 @@ export const sortCommentsByHierarchy = (comments) => {
   // Создаем объект для хранения комментариев по их id
   const commentsMap = new Map();
 
-  // Заполняем Map комментариями
-  comments.forEach(comment => {
+  // Функция для добавления комментария в карту
+  const addCommentToMap = (comment) => {
     commentsMap.set(comment._id, comment);
-  });
+    // Если у комментария есть дочерние комментарии, добавляем их рекурсивно в карту
+    if (comment.children) {
+      comment.children.forEach(addCommentToMap);
+    }
+  };
+
+  // Добавляем каждый комментарий в карту
+  comments.forEach(addCommentToMap);
 
   // Функция для построения иерархии комментариев
   const buildCommentHierarchy = (comment) => {

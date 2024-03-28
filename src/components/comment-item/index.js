@@ -11,7 +11,7 @@ import formatingDate from "../../utils/formatingDate"
 const CommentItem = ({ comment, setIsOpenTextarea, isOpenTextarea, paramsId, exists, onCancel, t, onSignIn, handleCommentSubmit }) => {
   const cn = bem('CommentItem');
   const formatedDate = formatingDate(comment.dateCreate);
-
+  console.log('item');
   return <div className={cn("wrapper")}>
     <div className={cn("head")}>
       {comment.author.profile?.authorName ? <p className={cn('commentator')}>{comment.author.profile?.authorName}</p> : <p className={cn('author')}>{comment.author.profile?.name}</p>}
